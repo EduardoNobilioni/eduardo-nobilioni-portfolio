@@ -26,27 +26,56 @@
 			crossorigin />
 
 		<link
-			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
 			rel="stylesheet" />
 	</head>
 
 	<body>
+		<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
 		<!-- ========================= -->
 		<!-- NAVBAR -->
 		<!-- ========================= -->
 
-		<header class="site-header">
-			<button
-				class="menu-toggle"
-				id="menu-toggle"
-				type="button"
-				aria-controls="nav-panel"
-				aria-expanded="false"
-				aria-label="Abrir navegação">
-				<span></span>
-				<span></span>
-				<span></span>
-			</button>
+		<header class="site-header" id="site-header">
+			<div class="container header-inner">
+				<a class="logo" href="#hero" aria-label="Eduardo Nobilioni, início">
+					Eduardo<span>.Nobilioni</span>
+				</a>
+
+				<nav class="desktop-nav" aria-label="Navegação principal">
+					<ul class="desktop-nav-links">
+						<li><a href="#about" data-nav-link>Perfil</a></li>
+						<li><a href="#journey" data-nav-link>Trajetória</a></li>
+						<li><a href="#services" data-nav-link>Atuação</a></li>
+						<li><a href="#technologies" data-nav-link>Stack</a></li>
+						<li><a href="#projects" data-nav-link>Projetos</a></li>
+						<li><a href="#contact" data-nav-link>Contato</a></li>
+					</ul>
+				</nav>
+
+				<div class="header-actions">
+					<a
+						href="./docs/Curriculo_Eduardo_Nobilioni.pdf"
+						class="btn btn-sm btn-outline header-cv"
+						target="_blank"
+						rel="noopener noreferrer">
+						Currículo PDF
+					</a>
+
+					<button
+						class="menu-toggle"
+						id="menu-toggle"
+						type="button"
+						aria-controls="nav-panel"
+						aria-expanded="false"
+						aria-label="Abrir navegação">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+				</div>
+			</div>
 
 			<button
 				class="nav-backdrop"
@@ -55,9 +84,9 @@
 				aria-label="Fechar navegação"
 				tabindex="-1"></button>
 
-			<nav class="nav-panel" id="nav-panel" aria-label="Navegação principal" inert>
+			<nav class="nav-panel" id="nav-panel" aria-label="Menu mobile" inert>
 				<a class="logo" href="#hero" aria-label="Eduardo Nobilioni, início">
-					Eduardo <span>Nobilioni</span>
+					Eduardo<span>.Nobilioni</span>
 				</a>
 				<p class="nav-caption">PORTFÓLIO · ENGENHARIA DE SOFTWARE</p>
 				<ul class="nav-links" id="nav-links">
@@ -65,7 +94,7 @@
 					<li><a href="#about"><span aria-hidden="true">02</span> Perfil</a></li>
 					<li><a href="#journey"><span aria-hidden="true">03</span> Trajetória</a></li>
 					<li><a href="#services"><span aria-hidden="true">04</span> Atuação e Estudos</a></li>
-					<li><a href="#technologies"><span aria-hidden="true">05</span> Stack</a></li>
+					<li><a href="#technologies"><span aria-hidden="true">05</span> Stack Técnica</a></li>
 					<li><a href="#projects"><span aria-hidden="true">06</span> Projetos</a></li>
 					<li><a href="#contact"><span aria-hidden="true">07</span> Contato</a></li>
 				</ul>
@@ -78,38 +107,29 @@
 			<!-- HERO -->
 			<!-- ========================= -->
 
-			<section
-				class="hero"
-				id="hero">
-				<div class="container hero-content">
+			<section class="hero" id="hero">
+				<div class="hero-glow" aria-hidden="true"></div>
+				<div class="container hero-grid">
 					<div class="hero-text">
-						<p class="subtitle">ENGENHARIA DE SOFTWARE · DESENVOLVIMENTO FULL STACK</p>
+						<p class="eyebrow">ENGENHARIA DE SOFTWARE · DESENVOLVIMENTO WEB</p>
 
-						<h1>Eduardo<br /><span>Nobilioni.</span></h1>
+						<h1>Eduardo <span>Nobilioni.</span></h1>
 
-						<h2>
-							Estudante de Engenharia de Software (UNICSUL) e Analista de Help Desk, em
-							transição para Desenvolvimento Full Stack com JavaScript e Node.js.
-						</h2>
+						<p class="hero-lead">
+							Estudante de Engenharia de Software (UNICSUL) e Analista de Help Desk,
+							construindo aplicações web bem estruturadas com JavaScript, HTML, CSS e Node.js.
+						</p>
 
-						<p>
-							Construo aplicações web com JavaScript (ES6+ / ES Modules), HTML5, CSS3 e
-							testes automatizados com <code>node:test</code> — como o <strong>Rumos</strong>
-							e a extensão <strong>TextSwitch</strong> — enquanto aprofundo estudos em
-							TypeScript, APIs REST e bancos de dados relacionais.
+						<p class="hero-description">
+							Desenvolvo projetos publicados com ES Modules, design tokens e testes
+							automatizados com <code>node:test</code> — como o <strong>Rumos</strong> e a
+							extensão <strong>TextSwitch</strong> — enquanto aprofundo estudos em TypeScript,
+							APIs REST e bancos de dados relacionais.
 						</p>
 
 						<div class="hero-buttons">
-							<a
-								href="#projects"
-								class="btn">
+							<a href="#projects" class="btn">
 								Ver Projetos
-							</a>
-
-							<a
-								href="#contact"
-								class="btn btn-outline">
-								Contato
 							</a>
 
 							<a
@@ -119,13 +139,26 @@
 								rel="noopener noreferrer">
 								Currículo (PDF)
 							</a>
+
+							<a href="#contact" class="btn btn-ghost">
+								Entrar em Contato →
+							</a>
 						</div>
 					</div>
 
-					<div class="hero-image">
-						<img
-							src="./assets/img/avatar.png"
-							alt="Retrato profissional de Eduardo Nobilioni" />
+					<div class="hero-portrait">
+						<div class="avatar-ring">
+							<img
+								src="./assets/img/avatar.png"
+								width="960"
+								height="960"
+								fetchpriority="high"
+								alt="Retrato de Eduardo Nobilioni" />
+						</div>
+						<div class="status-pill">
+							<span class="status-dot" aria-hidden="true"></span>
+							<span>Em busca de vaga Júnior ou Estágio</span>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -134,34 +167,56 @@
 			<!-- PERFIL -->
 			<!-- ========================= -->
 
-			<section
-				class="about"
-				id="about">
-				<div class="container">
-					<h2 class="section-title">Perfil</h2>
+			<section class="about section-alt" id="about">
+				<div class="container about-grid">
+					<div class="section-heading">
+						<span class="section-index">01 // PERFIL</span>
+						<h2 class="section-title">Formação e base técnica</h2>
 
-					<p>
-						Graduando em Engenharia de Software pela UNICSUL (previsão de conclusão em
-						dez/2029) e participante do programa DIO Campus Expert (2026). Desenvolvo
-						aplicações focadas em separação de responsabilidades, ausência de dependências
-						desnecessárias e cobertura por testes automatizados, com destaque para o
-						<strong>Rumos</strong> e a extensão <strong>TextSwitch</strong>.
-					</p>
+						<dl class="quick-facts">
+							<div>
+								<dt>Graduação</dt>
+								<dd>Engenharia de Software · UNICSUL (2026–2029)</dd>
+							</div>
+							<div>
+								<dt>Cargo atual</dt>
+								<dd>Analista de Help Desk · Megabit Fibra</dd>
+							</div>
+							<div>
+								<dt>Localização</dt>
+								<dd>Osasco, SP</dd>
+							</div>
+							<div>
+								<dt>Idiomas</dt>
+								<dd>Inglês intermediário-avançado · Espanhol básico</dd>
+							</div>
+						</dl>
+					</div>
 
-					<p>
-						Possuo trajetória sólida em suporte técnico, Help Desk e análise de sistemas
-						internos — atualmente na Megabit Fibra (jul/2024 – atual) e anteriormente na
-						Speak Up Teleatendimento (2017 – 2019), além de passagens por operações de
-						Customer Experience e vendas técnicas na Kavak e iPlace. Atuo no dia a dia com
-						troubleshooting, diagnóstico de causa-raiz, gestão de SLA e comunicação técnica.
-					</p>
+					<div class="about-body">
+						<p>
+							Graduando em Engenharia de Software pela UNICSUL e participante do programa
+							<strong>DIO Campus Expert (2026)</strong>. Desenvolvo aplicações focadas em
+							separação de responsabilidades, código limpo sem dependências desnecessárias e
+							cobertura por testes automatizados, com destaque para o <strong>Rumos</strong> e a
+							extensão <strong>TextSwitch</strong>.
+						</p>
 
-					<p>
-						Complemento a formação com estudos em TypeScript, APIs REST em Node.js, modelagem
-						UML, Clean Code, fundamentos de computação em nuvem (AWS Cloud Fundamentals) e IA
-						(IBM / Anthropic), além de inglês técnico intermediário. Busco oportunidade como
-						Desenvolvedor Júnior ou Estagiário em Engenharia de Software / Full Stack.
-					</p>
+						<p>
+							Venho de uma trajetória prática em suporte técnico, Help Desk e análise de
+							sistemas internos — desde jul/2024 na <strong>Megabit Fibra</strong> (e em
+							capacitação interna para NOC com Grafana e Mikrotik) e anteriormente na
+							<strong>Speak Up</strong> (2017–2019), além de passagens por Customer Experience
+							e vendas técnicas na <strong>Kavak</strong> e <strong>iPlace</strong>.
+						</p>
+
+						<p>
+							Complemento a graduação com estudos em TypeScript, Node.js, APIs REST, SQL e
+							fundamentos de nuvem e IA (AWS, IBM e Anthropic). Busco minha primeira
+							oportunidade como <strong>Desenvolvedor Júnior ou Estagiário</strong> para
+							contribuir em projetos de Front-end ou Full Stack.
+						</p>
+					</div>
 				</div>
 			</section>
 
@@ -169,60 +224,63 @@
 			<!-- TRAJETÓRIA -->
 			<!-- ========================= -->
 
-			<section
-				class="journey"
-				id="journey">
+			<section class="journey" id="journey">
 				<div class="container">
-					<h2 class="section-title">Trajetória</h2>
+					<div class="section-header-inline">
+						<div>
+							<span class="section-index">02 // TRAJETÓRIA</span>
+							<h2 class="section-title">Experiência e transição</h2>
+						</div>
+						<p class="section-lead">
+							Histórico profissional em suporte a sistemas, operações de atendimento e evolução
+							na Engenharia de Software.
+						</p>
+					</div>
 
 					<div class="timeline">
-						<div class="card">
-							<h3>2017 — 2019</h3>
-
-							<h4>Analista de Desenvolvimento de Sistemas / Suporte · Speak Up</h4>
-
+						<article class="timeline-card">
+							<span class="timeline-period">fev/2026 — atual</span>
+							<h3>Engenharia de Software &amp; Projetos</h3>
+							<p class="timeline-place">UNICSUL · DIO Campus Expert</p>
 							<p>
-								Suporte especializado a sistemas internos e usuários, controle de backlog,
-								análise de falhas de software e atuação conjunta com o time de desenvolvimento
-								na identificação de bugs e otimização de fluxos.
+								Bacharelado em Engenharia de Software em andamento (previsão dez/2029) e
+								publicação de aplicações autorais em JavaScript, HTML5, CSS3 e Node.js com
+								testes automatizados.
 							</p>
-						</div>
+						</article>
 
-						<div class="card">
-							<h3>2021 — 2024</h3>
-
-							<h4>Customer Experience e Vendas Técnicas · Kavak e iPlace</h4>
-
+						<article class="timeline-card">
+							<span class="timeline-period">jul/2024 — atual</span>
+							<h3>Analista de Help Desk</h3>
+							<p class="timeline-place">Megabit Fibra · Osasco, SP</p>
 							<p>
-								Auditoria de dados e identificação de gargalos em sistemas internos na Kavak
-								(2021–2022) e vendas consultivas de soluções tecnológicas na iPlace (Apple
-								Premium Reseller, 2024).
+								Resolução de incidentes de conectividade e redes com troubleshooting
+								estruturado, gestão de SLA e capacitação interna para NOC (monitoramento no
+								Grafana e configuração de roteadores Mikrotik).
 							</p>
-						</div>
+						</article>
 
-						<div class="card">
-							<h3>jul/2024 — atual</h3>
-
-							<h4>Analista de Help Desk · Megabit Fibra</h4>
-
+						<article class="timeline-card">
+							<span class="timeline-period">2020 — 2024</span>
+							<h3>Customer Experience &amp; Vendas Técnicas</h3>
+							<p class="timeline-place">iPlace · Kavak · LLUMM</p>
 							<p>
-								Diagnóstico e troubleshooting estruturado de incidentes de redes e
-								conectividade, análise de causa-raiz, triagem em ferramenta ITSM e gestão de
-								acordos de nível de serviço (SLA).
+								Consultoria técnica em ecossistema Apple na iPlace (2024), análise de dados
+								operacionais (NPS/CSAT) e melhoria de processos na Kavak (2021–2022) e gestão
+								de chamados na LLUMM (2020–2021).
 							</p>
-						</div>
+						</article>
 
-						<div class="card">
-							<h3>fev/2026 — atual</h3>
-
-							<h4>Engenharia de Software (UNICSUL) e Projetos Reais</h4>
-
+						<article class="timeline-card">
+							<span class="timeline-period">2017 — 2019</span>
+							<h3>Analista de Sistemas / Suporte</h3>
+							<p class="timeline-place">Speak Up · Osasco, SP</p>
 							<p>
-								Bacharelado em Engenharia de Software em andamento, conclusão do DIO Campus
-								Expert 2026 e publicação de projetos em JavaScript e Node.js, em busca de
-								posição Júnior ou Estágio em Full Stack / Backend.
+								Suporte especializado a sistemas internos e usuários, controle de prazos de
+								chamados, diagnóstico de falhas e atuação conjunta com a equipe técnica na
+								identificação e correção de bugs.
 							</p>
-						</div>
+						</article>
 					</div>
 				</div>
 			</section>
@@ -231,46 +289,55 @@
 			<!-- ATUAÇÃO E ESTUDOS -->
 			<!-- ========================= -->
 
-			<section
-				class="services"
-				id="services">
+			<section class="services section-alt" id="services">
 				<div class="container">
-					<h2 class="section-title">Atuação e Estudos</h2>
+					<div class="section-header-inline">
+						<div>
+							<span class="section-index">03 // ATUAÇÃO E ESTUDOS</span>
+							<h2 class="section-title">Como construo software</h2>
+						</div>
+						<p class="section-lead">
+							Práticas aplicadas nos repositórios atuais e disciplinas em aprofundamento na
+							faculdade.
+						</p>
+					</div>
 
 					<div class="cards">
 						<article class="card">
-							<h3>Desenvolvimento Web</h3>
-
+							<span class="card-num">01</span>
+							<h3>Front-end Moderno e Acessível</h3>
 							<p>
-								Interfaces responsivas e acessíveis com HTML5 semântico, CSS3 (Grid, Flexbox e
-								design tokens) e JavaScript (ES6+ / ES Modules) sem dependências pesadas.
+								Interfaces responsivas com HTML5 semântico, CSS3 (Grid, Flexbox e design
+								tokens), manipulação de estado em JavaScript (ES6+ / ES Modules) e foco em
+								acessibilidade e performance.
 							</p>
 						</article>
 
 						<article class="card">
-							<h3>Testes e Qualidade</h3>
-
+							<span class="card-num">02</span>
+							<h3>Testes e Confiabilidade</h3>
 							<p>
-								Separação entre regras de negócio puras e camada de DOM, suítes automatizadas
-								com <code>node:test</code> e pipelines de validação no GitHub Actions.
+								Isolamento das regras de negócio fora do DOM, suítes de testes automatizados
+								com <code>node:test</code> e pipelines de integração contínua via GitHub
+								Actions.
 							</p>
 						</article>
 
 						<article class="card">
-							<h3>Engenharia de Software e Backend</h3>
-
+							<span class="card-num">03</span>
+							<h3>Evolução Full Stack</h3>
 							<p>
-								Aprofundamento em TypeScript, Node.js, APIs REST, modelagem UML, estruturas de
-								dados, Clean Code, banco relacional (SQL) e fundamentos AWS/IA.
+								Estudo prático de TypeScript, Node.js, construção de APIs REST, modelagem
+								relacional com SQL e fundamentos de arquitetura em nuvem (AWS).
 							</p>
 						</article>
 
 						<article class="card">
-							<h3>Suporte e Análise de Incidentes</h3>
-
+							<span class="card-num">04</span>
+							<h3>Troubleshooting e Redes</h3>
 							<p>
-								Vivência prática em ITSM, redes de computadores, diagnóstico de causa-raiz,
-								reprodução de falhas e alinhamento técnico com usuários e times de produto.
+								Base operacional sólida em TCP/IP, diagnóstico de causa-raiz, leitura de
+								alertas no Grafana e comunicação clara entre áreas técnicas e usuários.
 							</p>
 						</article>
 					</div>
@@ -281,29 +348,46 @@
 			<!-- STACK -->
 			<!-- ========================= -->
 
-			<section
-				class="technologies"
-				id="technologies">
+			<section class="technologies" id="technologies">
 				<div class="container">
-					<h2 class="section-title">Stack Técnica</h2>
+					<div class="section-header-inline">
+						<div>
+							<span class="section-index">04 // STACK TÉCNICA</span>
+							<h2 class="section-title">Tecnologias e ferramentas</h2>
+						</div>
+						<p class="section-lead">
+							Divisão transparente entre o que aplico em produção nos projetos hoje e o que
+							estou estudando.
+						</p>
+					</div>
 
-					<p class="section-description">
-						Tecnologias aplicadas nos projetos publicados e competências em formação.
-					</p>
+					<div class="stack-groups">
+						<div class="stack-group">
+							<h3 class="stack-group-title">Em uso nos projetos publicados</h3>
+							<div class="tech-pills">
+								<span>JavaScript (ES6+ / ES Modules)</span>
+								<span>HTML5 Semântico</span>
+								<span>CSS3 (Grid, Flexbox, Tokens)</span>
+								<span>Node.js (node:test)</span>
+								<span>Chrome Extensions (Manifest V3)</span>
+								<span>PWA &amp; Service Worker</span>
+								<span>localStorage</span>
+								<span>Git &amp; GitHub</span>
+								<span>GitHub Actions (CI)</span>
+							</div>
+						</div>
 
-					<div class="tech-grid">
-						<div>JavaScript (ES6+ / ESM)</div>
-						<div>HTML5</div>
-						<div>CSS3</div>
-						<div>Node.js</div>
-						<div>node:test</div>
-						<div>Chrome Extensions (MV3)</div>
-						<div>Git &amp; GitHub</div>
-						<div>GitHub Actions</div>
-						<div>TypeScript (em estudo)</div>
-						<div>APIs REST &amp; SQL (em estudo)</div>
-						<div>PWA / Service Worker</div>
-						<div>AWS &amp; AI Fundamentals</div>
+						<div class="stack-group">
+							<h3 class="stack-group-title">Em estudo &amp; base de infraestrutura</h3>
+							<div class="tech-pills tech-pills-muted">
+								<span>TypeScript</span>
+								<span>Node.js &amp; APIs REST</span>
+								<span>SQL / PostgreSQL</span>
+								<span>Redes &amp; TCP/IP</span>
+								<span>Grafana &amp; Mikrotik</span>
+								<span>AWS Cloud Fundamentals</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -312,15 +396,16 @@
 			<!-- PROJETOS -->
 			<!-- ========================= -->
 
-			<section
-				class="projects"
-				id="projects">
+			<section class="projects section-alt" id="projects">
 				<div class="container">
-					<div class="projects-header">
-						<h2 class="section-title">Projetos</h2>
-						<p class="projects-intro">
-							Projetos publicados com código-fonte aberto, evidências de interface e testes
-							automatizados.
+					<div class="section-header-inline">
+						<div>
+							<span class="section-index">05 // PROJETOS</span>
+							<h2 class="section-title">Projetos em destaque</h2>
+						</div>
+						<p class="section-lead">
+							Aplicações completas com código aberto, demonstração funcional, prints reais e
+							cobertura de testes.
 						</p>
 					</div>
 
@@ -328,23 +413,23 @@
 						<article class="project-card project-featured">
 							<div class="project-top">
 								<span class="project-badge">PROJETO PRINCIPAL · DESTAQUE</span>
-								<span class="project-meta">WEB APP · OFFLINE-FIRST</span>
+								<span class="project-meta">WEB APP · OFFLINE-FIRST · CI</span>
 							</div>
 
 							<h3>Rumos — Guia de Estudos Interativo</h3>
 
 							<p>
 								Aplicação web livre para planejamento de estudos em tecnologia. A partir da
-								escolha de carreira, fundamentos, tecnologias, nível e carga horária semanal, o
-								Rumos monta um trajeto combinado sem duplicidades, respeita pré-requisitos e
-								organiza o plano na rotina do usuário.
+								escolha de carreira, fundamentos, tecnologias, nível e horas semanais, o Rumos
+								combina trilhas sem tópicos duplicados, respeita pré-requisitos e encaixa o
+								estudo na rotina real do estudante.
 							</p>
 
 							<ul class="project-highlights">
-								<li>Importação de grade acadêmica via <code>.ics</code>, CSV ou horário manual</li>
-								<li>Autoavaliação por etapa, ideias de projeto com guia inicial e busca rápida (⌘K)</li>
-								<li>Arquitetura em ES Modules sem bundler, design tokens (Limão Escuro/Claro) e Service Worker</li>
-								<li>Regras de negócio testadas com <code>node:test</code> e validação contínua via GitHub Actions</li>
+								<li>Importação de grade acadêmica via <code>.ics</code>, CSV ou horário manual, exportando PDF, Markdown e agenda</li>
+								<li>Autoavaliação por etapa, catálogo de ideias de projeto com guia inicial e busca rápida (⌘K)</li>
+								<li>Arquitetura em ES Modules sem bundler, design tokens (Limão Escuro/Claro) e Service Worker offline</li>
+								<li>Regras de negócio validadas com <code>node:test</code> e pipeline automatizado no GitHub Actions</li>
 							</ul>
 
 							<div class="project-media">
@@ -353,7 +438,7 @@
 										src="./assets/img/projects/rumos-home.png"
 										alt="Tela inicial do Rumos no tema Limão Escuro"
 										loading="lazy" />
-									<figcaption>Tela inicial e seleção de trilhas (tema Limão Escuro)</figcaption>
+									<figcaption>Tela inicial e montagem de trilhas (tema Limão Escuro)</figcaption>
 								</figure>
 								<figure>
 									<img
@@ -401,9 +486,9 @@
 								<p>
 									Extensão open-source para expansão instantânea de atalhos e templates
 									dinâmicos (<code>{formdate}</code>, <code>{formmenu}</code>,
-									<code>{formtext}</code>) em qualquer campo web, com armazenamento 100% local
-									via <code>chrome.storage.local</code>, zero dependências e suíte de testes
-									unitários.
+									<code>{formtext}</code>) em campos de texto na web, com armazenamento 100%
+									local via <code>chrome.storage.local</code>, zero dependências externas e
+									testes unitários.
 								</p>
 
 								<div class="project-media">
@@ -442,16 +527,16 @@
 								<h3>Interfaces &amp; Landing Pages</h3>
 
 								<p>
-									Repositórios de prática focados em HTML5 semântico, CSS modular, Grid,
-									Flexbox, responsividade e animações — consolidando fundamentos de layout
-									antes de avançar para lógica e arquitetura em JavaScript.
+									Conjunto de projetos focados em HTML5 semântico, CSS modular com variáveis,
+									Grid, Flexbox, responsividade, animações em CSS e validação nativa de
+									formulários.
 								</p>
 
-								<ul class="project-highlights" style="grid-template-columns: 1fr;">
-									<li><strong>Zingen:</strong> landing page responsiva com CSS modular</li>
-									<li><strong>Snitap:</strong> landing page responsiva com animações em CSS</li>
-									<li><strong>Portal de Notícias:</strong> layout editorial com CSS Grid e Flexbox</li>
-									<li><strong>Travelgram:</strong> interface de perfil com Flexbox</li>
+								<ul class="project-highlights project-highlights-single">
+									<li><strong>Snitap:</strong> landing page responsiva com animações fluidas em CSS</li>
+									<li><strong>Zingen:</strong> landing page de produto com CSS modular e Grid</li>
+									<li><strong>Portal de Notícias:</strong> layout editorial denso com CSS Grid e Flexbox</li>
+									<li><strong>Travelgram:</strong> página de perfil responsiva com Flexbox</li>
 								</ul>
 
 								<ul class="project-tags" aria-label="Tecnologias dos projetos Front-end">
@@ -463,18 +548,18 @@
 
 								<div class="project-links">
 									<a
+										href="https://eduardonobilioni.github.io/Landing-page-animada-patins/"
+										class="btn btn-outline"
+										target="_blank"
+										rel="noopener noreferrer">
+										Demo Snitap
+									</a>
+									<a
 										href="https://github.com/EduardoNobilioni/Landing-Page---Zingen"
 										class="btn btn-outline"
 										target="_blank"
 										rel="noopener noreferrer">
 										Zingen
-									</a>
-									<a
-										href="https://github.com/EduardoNobilioni/Landing-page-animada-patins"
-										class="btn btn-outline"
-										target="_blank"
-										rel="noopener noreferrer">
-										Snitap
 									</a>
 									<a
 										href="https://github.com/EduardoNobilioni/Portal-de-noticias"
@@ -501,42 +586,47 @@
 			<!-- CONTATO -->
 			<!-- ========================= -->
 
-			<section
-				class="contact"
-				id="contact">
+			<section class="contact" id="contact">
 				<div class="container">
-					<h2 class="section-title">Contato</h2>
+					<div class="contact-box">
+						<div class="contact-copy">
+							<span class="section-index">06 // CONTATO</span>
+							<h2 class="section-title">Vamos conversar?</h2>
+							<p>
+								Disponível para oportunidades como <strong>Desenvolvedor Júnior ou Estagiário</strong>
+								(Front-end / Full Stack) em Osasco, São Paulo ou remoto.
+							</p>
+						</div>
 
-					<p>
-						Disponível para oportunidades de estágio ou posição júnior em Desenvolvimento de
-						Software Full Stack. Contato direto por e-mail ou LinkedIn.
-					</p>
+						<div class="contact-links">
+							<a href="mailto:eduardo.nobilioni@outlook.com" class="btn">
+								eduardo.nobilioni@outlook.com
+							</a>
 
-					<div class="contact-links">
-						<a href="mailto:eduardo.nobilioni@outlook.com">
-							E-mail
-						</a>
+							<a
+								href="https://www.linkedin.com/in/eduardonobilioni/"
+								class="btn btn-outline"
+								target="_blank"
+								rel="noopener noreferrer">
+								LinkedIn
+							</a>
 
-						<a
-							href="https://github.com/EduardoNobilioni"
-							target="_blank"
-							rel="noopener noreferrer">
-							GitHub
-						</a>
+							<a
+								href="https://github.com/EduardoNobilioni"
+								class="btn btn-outline"
+								target="_blank"
+								rel="noopener noreferrer">
+								GitHub
+							</a>
 
-						<a
-							href="https://www.linkedin.com/in/eduardonobilioni/"
-							target="_blank"
-							rel="noopener noreferrer">
-							LinkedIn
-						</a>
-
-						<a
-							href="./docs/Curriculo_Eduardo_Nobilioni.pdf"
-							target="_blank"
-							rel="noopener noreferrer">
-							Currículo (PDF)
-						</a>
+							<a
+								href="./docs/Curriculo_Eduardo_Nobilioni.pdf"
+								class="btn btn-outline"
+								target="_blank"
+								rel="noopener noreferrer">
+								Baixar Currículo (PDF)
+							</a>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -547,10 +637,12 @@
 		<!-- ========================= -->
 
 		<footer>
-			<h2>Eduardo Nobilioni — Engenharia de Software</h2>
-
-			<p>© 2026 Eduardo Nobilioni · Osasco, SP</p>
+			<div class="container footer-inner">
+				<p class="footer-brand">Eduardo Nobilioni · Engenharia de Software</p>
+				<p class="footer-meta">© 2026 Eduardo Nobilioni · Osasco, SP</p>
+			</div>
 		</footer>
+
 		<script src="./assets/js/script.js"></script>
 	</body>
 </html>
