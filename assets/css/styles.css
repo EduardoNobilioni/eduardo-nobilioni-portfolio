@@ -445,8 +445,8 @@ section {
 	position: relative;
 	z-index: 1;
 	display: grid;
-	grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
-	gap: clamp(2.5rem, 5vw, 4.5rem);
+	grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+	gap: clamp(2.5rem, 4.5vw, 4rem);
 	align-items: center;
 }
 
@@ -511,14 +511,14 @@ section {
 
 .avatar-ring {
 	position: relative;
-	width: clamp(240px, 26vw, 340px);
+	width: clamp(280px, 32vw, 430px);
 	aspect-ratio: 1 / 1;
-	padding: 7px;
+	padding: 8px;
 	border-radius: 50%;
 	background: linear-gradient(145deg, rgba(183, 227, 74, 0.65) 0%, rgba(255, 255, 255, 0.12) 55%, rgba(183, 227, 74, 0.25) 100%);
 	box-shadow:
 		0 24px 60px rgba(0, 0, 0, 0.55),
-		0 0 48px rgba(183, 227, 74, 0.12);
+		0 0 54px rgba(183, 227, 74, 0.14);
 	transition: transform 360ms var(--ease-out), box-shadow 360ms ease;
 }
 
@@ -718,6 +718,16 @@ section {
 	color: var(--text-muted);
 	font-size: 1rem;
 	line-height: 1.68;
+}
+
+.services .card-wide {
+	grid-column: 1 / -1;
+	border-color: var(--accent-border);
+	background: linear-gradient(145deg, rgba(183, 227, 74, 0.06) 0%, var(--surface) 55%);
+}
+
+.services .card-wide p {
+	max-width: 78ch;
 }
 
 /* Stack / Technologies */
@@ -1069,7 +1079,7 @@ html.scroll-reveal-enabled .scroll-reveal:not(.is-visible) {
 	}
 
 	.avatar-ring {
-		width: 210px;
+		width: 245px;
 	}
 
 	.hero h1 {
