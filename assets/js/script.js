@@ -32,7 +32,7 @@ document.addEventListener("keydown", (event) => {
 
 
 const revealTargets = document.querySelectorAll(
-	".hero-text, .section-title, .about p, .timeline .card, .section-description, .tech-grid > div, .projects p, .contact .container > p, .contact-links a, footer h2, footer p",
+	".hero-text, .section-title, .about p, .timeline .card, .services .card, .section-description, .tech-grid > div, .projects-intro, .project-card, .contact .container > p, .contact-links a, footer h2, footer p",
 );
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -41,7 +41,7 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
 } else {
 	document.documentElement.classList.add("scroll-reveal-enabled");
 
-	for (const group of [".timeline .card", ".tech-grid > div", ".contact-links a"]) {
+	for (const group of [".timeline .card", ".services .card", ".tech-grid > div", ".project-card", ".contact-links a"]) {
 		document.querySelectorAll(group).forEach((item, index) => {
 			item.style.setProperty("--reveal-delay", `${Math.min(index * 80, 320)}ms`);
 		});
