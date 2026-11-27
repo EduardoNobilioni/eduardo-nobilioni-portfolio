@@ -4,7 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0" />
+			content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+		<meta name="theme-color" content="#050608" />
 
 		<title>Eduardo Nobilioni | Engenharia de Software & Desenvolvimento Web</title>
 
@@ -14,9 +15,25 @@
 
 		<link
 			rel="stylesheet"
-			href="./assets/css/styles.css" />
+			href="./assets/css/styles.css?v=20261126i" />
 
-		<!-- Fontes (alinhadas ao Rumos: Plus Jakarta Sans + JetBrains Mono) -->
+		<script>
+			// Se outro projeto local (ex.: Rumos PWA) registrou um Service Worker na porta do Live Server,
+			// remove o SW/cache em localhost para não travar atualizações do portfólio.
+			if (
+				"serviceWorker" in navigator &&
+				(location.hostname === "localhost" || location.hostname === "127.0.0.1")
+			) {
+				navigator.serviceWorker.getRegistrations().then((regs) => {
+					regs.forEach((reg) => reg.unregister());
+				});
+				if ("caches" in window) {
+					caches.keys().then((keys) => keys.forEach((k) => caches.delete(k)));
+				}
+			}
+		</script>
+
+		<!-- Fontes: Syne (Display) + Space Grotesk (Body) + JetBrains Mono (Specs/Code) -->
 		<link
 			rel="preconnect"
 			href="https://fonts.googleapis.com" />
@@ -26,11 +43,12 @@
 			crossorigin />
 
 		<link
-			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
 			rel="stylesheet" />
 	</head>
 
 	<body>
+		<canvas class="shader-canvas" id="shader-canvas" aria-hidden="true"></canvas>
 		<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 		<!-- ========================= -->
@@ -43,14 +61,23 @@
 					Eduardo<span>.Nobilioni</span>
 				</a>
 
-				<nav class="desktop-nav" aria-label="Navegação principal">
-					<ul class="desktop-nav-links">
+				<nav class="desktop-nav" id="desktop-nav" aria-label="Navegação principal">
+					<span class="desktop-nav-hover" id="desktop-nav-hover" aria-hidden="true"></span>
+					<ul class="desktop-nav-links" id="desktop-nav-base">
 						<li><a href="#about" data-nav-link>Perfil</a></li>
 						<li><a href="#journey" data-nav-link>Trajetória</a></li>
 						<li><a href="#services" data-nav-link>Atuação</a></li>
 						<li><a href="#technologies" data-nav-link>Stack</a></li>
 						<li><a href="#projects" data-nav-link>Projetos</a></li>
 						<li><a href="#contact" data-nav-link>Contato</a></li>
+					</ul>
+					<ul class="desktop-nav-links desktop-nav-overlay" id="desktop-nav-overlay" aria-hidden="true">
+						<li><span data-nav-mirror>Perfil</span></li>
+						<li><span data-nav-mirror>Trajetória</span></li>
+						<li><span data-nav-mirror>Atuação</span></li>
+						<li><span data-nav-mirror>Stack</span></li>
+						<li><span data-nav-mirror>Projetos</span></li>
+						<li><span data-nav-mirror>Contato</span></li>
 					</ul>
 				</nav>
 
@@ -113,7 +140,9 @@
 					<div class="hero-text">
 						<p class="eyebrow">ENGENHARIA DE SOFTWARE · DESENVOLVIMENTO WEB</p>
 
-						<h1>Eduardo <span>Nobilioni.</span></h1>
+						<h1 class="kinetic-title">
+							<span class="kinetic-mask"><span class="kinetic-line">Eduardo <span>Nobilioni.</span></span></span>
+						</h1>
 
 						<p class="hero-lead">
 							Estudante de Engenharia de Software (UNICSUL) e Analista de Help Desk,
@@ -121,10 +150,10 @@
 						</p>
 
 						<p class="hero-description">
-							Desenvolvo projetos publicados com ES Modules, design tokens e testes
-							automatizados com <code>node:test</code> — como o <strong>Rumos</strong> e a
-							extensão <strong>TextSwitch</strong> — enquanto aprofundo estudos em TypeScript,
-							APIs REST e bancos de dados relacionais.
+							Venho colocando meus estudos em prática por meio de projetos autorais — como o
+							<strong>Rumos</strong> e a extensão <strong>TextSwitch</strong> — utilizando
+							Inteligência Artificial como ferramenta de co-criação e aprendizado, enquanto
+							aprofundo fundamentos em JavaScript, TypeScript, APIs REST e bancos de dados.
 						</p>
 
 						<div class="hero-buttons">
@@ -147,13 +176,16 @@
 					</div>
 
 					<div class="hero-portrait">
-						<div class="avatar-ring">
-							<img
-								src="./assets/img/avatar.png"
-								width="960"
-								height="960"
-								fetchpriority="high"
-								alt="Retrato de Eduardo Nobilioni" />
+						<div class="avatar-ring" id="avatar-ring">
+							<div class="avatar-media">
+								<img
+									class="avatar-photo"
+									src="./assets/img/avatar.png"
+									width="960"
+									height="960"
+									fetchpriority="high"
+									alt="Retrato de Eduardo Nobilioni" />
+							</div>
 						</div>
 						<div class="status-pill">
 							<span class="status-dot" aria-hidden="true"></span>
@@ -195,11 +227,11 @@
 
 					<div class="about-body">
 						<p>
-							Graduando em Engenharia de Software pela UNICSUL e participante do programa
-							<strong>DIO Campus Expert (2026)</strong>. Desenvolvo aplicações focadas em
-							separação de responsabilidades, código limpo sem dependências desnecessárias e
-							cobertura por testes automatizados, com destaque para o <strong>Rumos</strong> e a
-							extensão <strong>TextSwitch</strong>.
+							Graduando em Engenharia de Software pela UNICSUL, em constante aprendizado
+							prático no desenvolvimento web. Construo projetos autorais como o
+							<strong>Rumos</strong> e a extensão <strong>TextSwitch</strong>, usando
+							ferramentas de Inteligência Artificial como apoio na co-criação para tirar
+							ideias do papel, entender boas práticas e evoluir no código a cada projeto.
 						</p>
 
 						<p>
@@ -315,25 +347,36 @@
 
 						<article class="card">
 							<span class="card-num">02</span>
-							<h3>Testes e Confiabilidade</h3>
+							<h3>Versionamento e Organização</h3>
 							<p>
-								Isolamento das regras de negócio fora do DOM, suítes de testes automatizados
-								com <code>node:test</code> e pipelines de integração contínua via GitHub
-								Actions.
+								Uso de Git e GitHub para organizar projetos, acompanhar a evolução do código,
+								documentar ideias e publicar aplicações web de forma prática no GitHub Pages.
 							</p>
 						</article>
 
-						<article class="card card-wide">
-							<span class="card-num">03</span>
-							<h3>Desenvolvimento Assistido por IA &amp; Direção de Produto</h3>
-							<p>
-								Utilizo ferramentas de Inteligência Artificial como apoio de engenharia,
-								atuando na direção técnica e funcional: concepção das funcionalidades,
-								definição e documentação das regras de negócio, decisões de arquitetura,
-								revisão crítica do código gerado e validação por testes automatizados —
-								prática aplicada na construção do <strong>Rumos</strong> e do
-								<strong>TextSwitch</strong>.
-							</p>
+						<article class="card card-wide has-ambient-video">
+							<video
+								class="ambient-video"
+								src="./assets/videos/gameplay1.mp4"
+								autoplay
+								muted
+								loop
+								playsinline
+								preload="metadata"
+								aria-hidden="true"></video>
+							<div class="ambient-video-scrim" aria-hidden="true"></div>
+							<div class="card-content">
+								<span class="card-num">03</span>
+								<h3>Desenvolvimento Assistido por IA &amp; Direção de Produto</h3>
+								<p>
+									Utilizo ferramentas de Inteligência Artificial como apoio de engenharia,
+									atuando na direção técnica e funcional: concepção das funcionalidades,
+									definição e documentação das regras de negócio, decisões de arquitetura,
+									revisão crítica do código gerado e validação por testes automatizados —
+									prática aplicada na construção do <strong>Rumos</strong> e do
+									<strong>TextSwitch</strong>.
+								</p>
+							</div>
 						</article>
 
 						<article class="card">
@@ -447,17 +490,35 @@
 
 							<div class="project-media">
 								<figure>
-									<img
-										src="./assets/img/projects/rumos-home.png"
-										alt="Tela inicial do Rumos no tema Limão Escuro"
-										loading="lazy" />
+									<button
+										type="button"
+										class="media-trigger"
+										data-lightbox-src="./assets/img/projects/rumos-home.png"
+										data-lightbox-alt="Tela inicial do Rumos no tema Limão Escuro"
+										data-lightbox-caption="Rumos — Tela inicial e montagem de trilhas (tema Limão Escuro)"
+										aria-label="Ampliar imagem: Tela inicial do Rumos">
+										<img
+											src="./assets/img/projects/rumos-home.png"
+											alt="Tela inicial do Rumos no tema Limão Escuro"
+											loading="lazy" />
+										<span class="media-zoom-hint" aria-hidden="true">Ampliar</span>
+									</button>
 									<figcaption>Tela inicial e montagem de trilhas (tema Limão Escuro)</figcaption>
 								</figure>
 								<figure>
-									<img
-										src="./assets/img/projects/rumos-roadmap.png"
-										alt="Visualização em mapa de roadmap do Rumos"
-										loading="lazy" />
+									<button
+										type="button"
+										class="media-trigger"
+										data-lightbox-src="./assets/img/projects/rumos-roadmap.png"
+										data-lightbox-alt="Visualização em mapa de roadmap do Rumos"
+										data-lightbox-caption="Rumos — Roadmap interativo com progresso e pré-requisitos"
+										aria-label="Ampliar imagem: Roadmap interativo do Rumos">
+										<img
+											src="./assets/img/projects/rumos-roadmap.png"
+											alt="Visualização em mapa de roadmap do Rumos"
+											loading="lazy" />
+										<span class="media-zoom-hint" aria-hidden="true">Ampliar</span>
+									</button>
 									<figcaption>Roadmap interativo com progresso e pré-requisitos</figcaption>
 								</figure>
 							</div>
@@ -506,10 +567,19 @@
 
 								<div class="project-media">
 									<figure>
-										<img
-											src="./assets/img/projects/textswitch-dashboard.png"
-											alt="Painel de gerenciamento de templates da extensão TextSwitch"
-											loading="lazy" />
+										<button
+											type="button"
+											class="media-trigger"
+											data-lightbox-src="./assets/img/projects/textswitch-dashboard.png"
+											data-lightbox-alt="Painel de gerenciamento de templates da extensão TextSwitch"
+											data-lightbox-caption="TextSwitch — Painel de gerenciamento de templates e atalhos"
+											aria-label="Ampliar imagem: Painel da extensão TextSwitch">
+											<img
+												src="./assets/img/projects/textswitch-dashboard.png"
+												alt="Painel de gerenciamento de templates da extensão TextSwitch"
+												loading="lazy" />
+											<span class="media-zoom-hint" aria-hidden="true">Ampliar</span>
+										</button>
 										<figcaption>Painel de gerenciamento de templates e atalhos</figcaption>
 									</figure>
 								</div>
@@ -601,7 +671,17 @@
 
 			<section class="contact" id="contact">
 				<div class="container">
-					<div class="contact-box">
+					<div class="contact-box has-ambient-video">
+						<video
+							class="ambient-video"
+							src="./assets/videos/gameplay2.mp4"
+							autoplay
+							muted
+							loop
+							playsinline
+							preload="metadata"
+							aria-hidden="true"></video>
+						<div class="ambient-video-scrim" aria-hidden="true"></div>
 						<div class="contact-copy">
 							<span class="section-index">06 // CONTATO</span>
 							<h2 class="section-title">Vamos conversar?</h2>
@@ -656,6 +736,37 @@
 			</div>
 		</footer>
 
-		<script src="./assets/js/script.js"></script>
+		<!-- Lightbox modal para capturas de tela (scale 0.95 -> 1, assimétrico enter/exit) -->
+		<div
+			class="lightbox"
+			id="lightbox"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="lightbox-caption"
+			aria-hidden="true"
+			inert>
+			<button
+				type="button"
+				class="lightbox-backdrop"
+				id="lightbox-backdrop"
+				aria-label="Fechar visualização"
+				tabindex="-1"></button>
+			<div class="lightbox-dialog">
+				<button
+					type="button"
+					class="lightbox-close"
+					id="lightbox-close"
+					aria-label="Fechar visualização (Esc)">
+					Fechar · Esc
+				</button>
+				<img class="lightbox-img" id="lightbox-img" src="" alt="" />
+				<p class="lightbox-caption" id="lightbox-caption"></p>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+		<script type="module" src="./assets/js/script.js?v=20261126i"></script>
 	</body>
 </html>
